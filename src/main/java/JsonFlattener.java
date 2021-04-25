@@ -16,11 +16,12 @@ public class JsonFlattener {
 
     JsonFlattener(JsonNode root) throws JsonProcessingException {
         this.root = root;
-        /*ObjectMapper mapper = new ObjectMapper();
-        System.out.println("testing1");
-        this.root = mapper.readTree(input);
-        System.out.println("testing2");*/
+    }
 
+    JsonFlattener(String input) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(input);
+        this.root = root;
     }
 
     public Map<String, JsonNode> flatten() {
@@ -36,7 +37,6 @@ public class JsonFlattener {
                     process(entry.getValue(), entry.getKey(), depth+1);
                 }
                 else {
-                    System.out.println(depth);
                     process(entry.getValue(), prefix + "." + entry.getKey(), depth + 1);
                 }
             });
@@ -46,13 +46,11 @@ public class JsonFlattener {
     }
 
     public static void main(String[] args) throws Exception {
-        File jsonFile = new File("C:\\Users\\adamc\\Desktop\\College\\3rd year\\Test-Maven\\src\\test.json");
-
+        String input = "{\"a\": 1,\"b\": true,\"c\": {\"d\": 3,\"e\": {\"f\": false,\"g\": \"hello\"}}}";
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(jsonFile);
+        JsonNode root = mapper.readTree(input);
         Map<String, JsonNode> map = new JsonFlattener(root).flatten();
 
-        System.out.println("Use key-value pairs:");
         map.forEach(
                 (k, v) -> {
                     System.out.println(k + " => " + v);

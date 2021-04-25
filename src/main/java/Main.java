@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("----- ExampleMain started -------");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             String line = null;
             String input = "";
