@@ -1,0 +1,12 @@
+Java version: 14
+
+Notice:
+In Main there is code to take linux commands to pipe the json file. If you run the command ---- and pipe a
+json file it will be printed to console. However the JsonFlattener class uses objectMapper to flatten the Json file.
+Unfortunately objectMapper would not work when run from console. I was not able to find a solution to this issue on time.
+When run from the my intellij IDE the Json file would flatten but unfortunately as i said before would not run from the command line.
+
+To run:
+go to location of project
+mvn compile
+cat "Json FIle" | java -cp target/Test-1.0-SNAPSHOT.jar Main
